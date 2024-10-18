@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "proxy": "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?slug=bitcoin,ethereum,bnb,solana,cardano",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -27,5 +30,10 @@
     "postcss-cli": "^11.0.0",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.8"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
