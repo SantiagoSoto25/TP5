@@ -1,26 +1,47 @@
 import { useEffect, useState } from 'react';
 import '../index.css';
 
+
 function Apicripto() {
-  const API_KEY = 'fa5bba60-32ec-4066-805a-6a85e50290d7';
-  const [Cripto, setCripto] = useState([]);
+  const [cripto, setCripto] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchCripto = async () => {
-    const response = await fetch(`https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?slug=bitcoin,ethereum,bnb,solana,cardano`, {
-      headers: {
-        'X-CMC_PRO_API_KEY': API_KEY,
-      },
-    });
+    try {
+      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,cardano')}`);
+      
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-    const data = await response.json();
-    setCripto(Object.values(data.data)); 
-  }; 
+      const data = await response.json();
+      
+      if (!data.contents) {
+        throw new Error('Respuesta invalida de la url');
+      }
+
+      const criptoData = JSON.parse(data.contents);
+      
+      if (!Array.isArray(criptoData)) {
+        throw new Error('Estructura de la url mala');
+      }
+
+      setCripto(criptoData);
+      console.log('Cripto data:', criptoData);
+    } catch (err) {
+      console.error('Error fetching crypto data:', err);
+      setError(err.message);
+    }
+  };
 
   useEffect(() => {
-    fetchCripto(); 
+    fetchCripto();
   }, []);
 
-  console.log(Cripto); 
+  
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>
@@ -37,15 +58,19 @@ function Apicripto() {
           </div>
         </div>
       </section>
-      <section className="w-[60%] mt-5 mx-auto rounded-lg shadow-lg p-8">
+      <section className="w-[30%] mt-5 mx-auto rounded-lg shadow-lg p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="w-full">
+          <div className="">
             <p className="text-bitcoin-orange text-[1.1rem] font-bold leading-[1.0rem] mb-[15px] mt-[0px] font-DM-Sans">
               Monedas
             </p>
             <div className="w-full">
               <ul className="space-y-2">
-                {}
+              {cripto.map((coin) => (
+            <li className='text-[1.1rem] text-start font-bold' key={coin.id}>
+              {coin.name}: ${coin.current_price}
+            </li>
+          ))}
               </ul>
             </div>
           </div>
