@@ -6,6 +6,7 @@ import Planes from './components/Planes'
 import Footer from './components/Footer'
 function App() {
   return (
+
     <div>
     <Header />
     <Apicripto />

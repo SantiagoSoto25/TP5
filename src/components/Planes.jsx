@@ -1,7 +1,7 @@
 function Planes() { 
 
 return (
-<>
+<div id="planes">
 <section className="bg-white w-full sm:h-[986px] md:h-[986px]  lg:h-[686px] xl:h-[686px] 2xl:h-[686px] p-10 text-center  flex flex-col items-center relative">
 
     <p className="text-black font-bold text-3xl">Escoge el plan que mejor se ajuste a ti.</p>
@@ -38,16 +38,9 @@ return (
         </div>
     </div>
 </div>
+</section>
 
-
-    </section>
-
-
-
-
-
-
-    </>
+</div>
     )
 
 }
