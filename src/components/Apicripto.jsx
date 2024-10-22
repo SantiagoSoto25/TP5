@@ -1,48 +1,10 @@
-import { useEffect, useState } from 'react';
+import Cripto from '../hooks/Cripto.jsx';
 import '../index.css';
-
+import Tiempo from '../hooks/Tiempo';
 
 function Apicripto() {
-  const [cripto, setCripto] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchCripto = async () => {
-    try {
-      const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,solana,cardano')}`);
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      
-      if (!data.contents) {
-        throw new Error('Respuesta invalida de la url');
-      }
-
-      const criptoData = JSON.parse(data.contents);
-      
-      if (!Array.isArray(criptoData)) {
-        throw new Error('Estructura de la url mala');
-      }
-
-      setCripto(criptoData);
-      console.log('Cripto data:', criptoData);
-    } catch (err) {
-      console.error('Error fetching crypto data:', err);
-      setError(err.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchCripto();
-  }, []);
-
-  
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
+  const tiempo = Tiempo();
+  const cripto = Cripto();
   return (
     <>
       <section>
@@ -58,7 +20,7 @@ function Apicripto() {
           </div>
         </div>
       </section>
-      <section className="w-[30%] mt-5 mx-auto rounded-lg shadow-lg p-8">
+      <section className="w-[30%] max-lg:w-[60%] max-md:w-[90%]  max-sm:w-[90%] mt-8 mx-auto rounded-lg shadow-lg p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="">
             <p className="text-bitcoin-orange text-[1.1rem] font-bold leading-[1.0rem] mb-[15px] mt-[0px] font-DM-Sans">
@@ -68,23 +30,38 @@ function Apicripto() {
               <ul className="space-y-2">
               {cripto.map((coin) => (
             <li className='text-[1.1rem] text-start font-bold' key={coin.id}>
-              {coin.name}: ${coin.current_price}
+              {coin.name}: ${parseFloat(coin.priceUsd).toFixed(2)}
             </li>
-          ))}
+            ))}
               </ul>
             </div>
           </div>
           <div className="w-full">
-            <p className="text-blue-600 text-[1.1rem] font-bold leading-[1.0rem] mb-[15px] mt-[0px] font-DM-Sans">
-              Comisiones
+            <p className="text-blue-600 text-[1.1rem] font-bold leading-[1.0rem] mb-[15px] mt-[0px] font-DM-Sans text-center">
+              Los Mejores Exchanges
             </p>
-            <div className="w-full">
+            <div className="w-full ">
               <ul className="space-y-2">
-                {}
+                 <button onClick={()=>{ console.log("redirigiendo a Binance"); window.location.href="https://www.binance.com/";}} className='text-[1.1rem] text-start font-bold hover:underline'>
+                  Binance
+                 </button>
+                 <br></br>
+                 <button onClick={()=>{ console.log("redirigiendo a Kraken"); window.location.href="https://www.kraken.com/es-es";}} className='text-[1.1rem] text-start font-bold hover:underline'>
+                 Kraken
+                 </button>
+                 <br></br>
+                 <button onClick={()=>{ console.log("redirigiendo a Crypto.com"); window.location.href="https://crypto.com/";}}className='text-[1.1rem] text-start font-bold hover:underline'>
+                 Crypto.com
+                 </button>
+                 <br></br>
+                 <button onClick={()=>{ console.log("redirigiendo a Coinbase"); window.location.href="https://www.coinbase.com/es-la/";}}className='text-[1.1rem] text-start font-bold hover:underline'>
+                 Coinbase
+                 </button>
               </ul>
             </div>
           </div>
         </div>
+    <p className='font-bold items-center mt-5 text-center'>Actualizado: {tiempo}</p>
       </section>
     </>
   );

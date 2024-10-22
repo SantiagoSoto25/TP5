@@ -13,6 +13,7 @@ export default {
         'secondary-blue': '#1a94f7',
         'warm-black':'#201e1c',
         'grey': '#757575',
+        'black-batata': '#282623',
         'light-grey': '#808080',
         'off-white':'#faf8f7',
         'just-white': '#fff',
