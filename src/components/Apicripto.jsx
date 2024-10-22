@@ -5,11 +5,12 @@ import Tiempo from '../hooks/Tiempo';
 function Apicripto() {
   const tiempo = Tiempo();
   const cripto = Cripto();
+  const bitcoinLogo = '/assets/imgs/Bitcoin.svg';
   return (
     <>
       <section>
         <div className="container-size-full flex h-[386px] flex-col justify-center items-center py-10 relative">
-          <img className="w-[220px] mt-[3rem]" src="./src/assets/imgs/bitcoin.svg" alt="btc logo" />
+          <img className="w-[220px] mt-[3rem]" src={bitcoinLogo} alt="btc logo" />
           <div className="mt-10 text-center">
             <p className="font-bold text-[2rem]">
               Visibilizamos todas las tasas de cambio.

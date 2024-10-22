@@ -1,4 +1,6 @@
+
 function Footer(){
+    const footerLogo = '/assets/imgs/logo-footer.svg';
     return (
     <>
     <footer className="w-full h-[100px] bg-bitcoin-orange flex items-center justify-between">
@@ -7,7 +9,7 @@ function Footer(){
     <a href="https://github.com/Swiftboat2" className="text-justify ml-6 text-white font-bold">Github</a>
     </div>
     <div>
-        <img src="./src/assets/imgs/logo-footer.svg" alt="batata" className="w-[80px] mr-10"></img>
+        <img src={footerLogo} alt="batata" className="w-[80px] mr-10"></img>
     </div>
     </footer>
 
